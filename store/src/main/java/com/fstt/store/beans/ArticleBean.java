@@ -6,8 +6,13 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.Part;
 import lombok.Data;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 
@@ -22,7 +27,7 @@ public class ArticleBean {
     private String description;
     private double prix;
     private int stock;
-    private String image;
+    private Part image;
 
     public ArticleBean() {
         // Obtention de l'EntityManager via JpaUtil
@@ -36,7 +41,23 @@ public class ArticleBean {
        art.setDescription(description);
        art.setStock(stock);
        art.setPrix(prix);
-       art.setImage(image);
+
+       //Hnadle file upload
+        if (image != null) {
+            try {
+                String fileName = image.getSubmittedFileName();
+                String uploadDir = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/uploads");
+                File uploadDirFile = new File(uploadDir);
+                if (!uploadDirFile.exists()) {
+                    uploadDirFile.mkdirs();
+                }
+                File file = new File(uploadDirFile,fileName);
+                Files.copy(image.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                art.setImage("/uploads/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
        em.getTransaction().begin();
         System.out.println("COMITING THE NEW ARTICLE");

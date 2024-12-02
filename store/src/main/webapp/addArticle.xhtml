@@ -5,15 +5,44 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h1> Ajouter un produit</h1>
-    <h:form>
-        <h:inputText value="#{articleBean.nom}" label="Nom"/>  <br/>
-        <h:inputText value="#{articleBean.description}" label="Description"/>  <br/>
-        <h:inputText value="#{articleBean.stock}" label="stock"/>  <br/>
-        <h:inputText value="#{articleBean.prix}" label="prix"/>     <br />
-        <h:inputText value="#{articleBean.image}" label="image"/>   <br />
-        <h:commandButton value="Save"  actionListener="#{articleBean.ajouterArticle()}" />
-
-    </h:form>
+    <h:head>
+        <title>Ajouter un produit</title>
+        <!-- Inclure Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1 class="my-4 text-center">Ajouter un produit</h1>
+            <h:form enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <h:inputText id="nom" value="#{articleBean.nom}" label="Nom" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <h:inputText id="description" value="#{articleBean.description}" label="Description" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <h:inputText id="stock" value="#{articleBean.stock}" label="Stock" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="prix">Prix</label>
+                    <h:inputText id="prix" value="#{articleBean.prix}" label="Prix" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <h:inputFile id="image" value="#{articleBean.image}" class="form-control-file" />
+                </div>
+                <div class="form-group text-center">
+                    <h:commandButton value="Save" action="#{articleBean.ajouterArticle()}" class="btn btn-primary" />
+                </div>
+            </h:form>
+        </div>
+        <!-- Inclure Bootstrap JS et ses dépendances -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" type=""></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" type=""></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type=""></script>
+    </h:body>
 </f:view>
 </html>
