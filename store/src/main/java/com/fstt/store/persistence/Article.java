@@ -3,9 +3,11 @@ package com.fstt.store.persistence;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Data
-public class Article {
+public class Article implements Serializable { //pour pouvoir passer l'objet Article entre les vues,
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,6 +17,4 @@ public class Article {
     private int stock;
     private String image;
 
-    @ManyToOne
-    private Panier panier;
 }

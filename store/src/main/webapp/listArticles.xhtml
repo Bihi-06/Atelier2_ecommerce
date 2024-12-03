@@ -10,17 +10,23 @@
         <title>Liste des Produits</title>
         <!-- Inclure Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <script type="text/javascript">
+            function showAlert() {
+                alert("Article ajouté au panier !");
+            }
+        </script>
     </h:head>
     <h:body>
         <div class="container">
             <h1 class="my-4 text-center">Liste des Produits</h1>
+            <div class="text-right mb-3">
+                <h:link value="Mon Panier" outcome="panier.xhtml" styleClass="btn btn-success" />
+            </div>
             <div class="row">
                 <!-- Utilisation de h:dataTable pour afficher les cartes -->
                 <ui:repeat value="#{articleBean.lister()}" var="art">
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <!-- Image du produit -->
-                            <img class="card-img-top" src="#{art.image}" alt="Image de #{art.nom}" />
                             <div class="card-body">
                                 <!-- Nom du produit -->
                                 <h5 class="card-title">#{art.nom}</h5>
@@ -33,7 +39,10 @@
                             </div>
                             <div class="card-footer text-center">
                                 <!-- Bouton Ajouter au panier -->
-                                <h:commandButton value="Ajouter au panier" action="#{panierBean.ajouterAuPanier(art)}" styleClass="btn btn-primary" />
+                                <h:form>
+                                    <h:commandButton value="Ajouter au panier" action="#{panierBean.ajouterAuPanier(art)}" styleClass="btn btn-primary" immediate="true" onclick="showAlert()"/>
+                                </h:form>
+
                             </div>
                         </div>
                     </div>
